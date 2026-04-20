@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>River Drift - Zohib Sala</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Enhanced Lightbox Styles - Cyberpunk Theme */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+            .lightbox.active {
+                display: flex;
+                opacity: 1;
+            }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            text-align: center;
+            animation: zoomIn 0.3s ease-out;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .lightbox-content img {
+            max-width: 90vw;
+            max-height: 85vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(191, 0, 255, 0.3);
+            border: 1px solid var(--neon-purple, #bf00ff);
+        }
+
+        /* Close Button */
+        .lightbox-close {
+            position: fixed;
+            top: 25px;
+            right: 35px;
+            color: white;
+            font-size: 45px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 2001;
+            transition: all 0.3s ease;
+            background: rgba(191, 0, 255, 0.2);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--neon-purple, #bf00ff);
+        }
+
+            .lightbox-close:hover {
+                background: rgba(191, 0, 255, 0.5);
+                transform: rotate(90deg);
+                color: white;
+            }
+
+        /* Navigation Arrows */
+        .lightbox-prev,
+        .lightbox-next {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(191, 0, 255, 0.2);
+            backdrop-filter: blur(5px);
+            color: white;
+            font-size: 2rem;
+            padding: 1rem;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 2001;
+            border: 1px solid var(--neon-purple, #bf00ff);
+        }
+
+        .lightbox-prev {
+            left: 25px;
+        }
+
+        .lightbox-next {
+            right: 25px;
+        }
+
+            .lightbox-prev:hover,
+            .lightbox-next:hover {
+                background: rgba(191, 0, 255, 0.5);
+                transform: translateY(-50%) scale(1.1);
+                box-shadow: 0 0 20px rgba(191, 0, 255, 0.5);
+            }
+
+        /* Image Counter */
+        .lightbox-counter {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            color: var(--neon-purple, #bf00ff);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-family: "Orbitron", monospace;
+            font-size: 0.9rem;
+            z-index: 2001;
+            border: 1px solid var(--neon-purple, #bf00ff);
+            letter-spacing: 1px;
+        }
+
+        /* Video styling */
+        .media-item video {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+            border-radius: 16px;
+            cursor: pointer;
+        }
+
+        .media-item:hover video {
+            transform: scale(1.05);
+        }
+
+        /* Media item hover effects */
+        .project-media {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .media-item {
+            background: rgba(26, 26, 26, 0.8);
+            border: 1px solid var(--border-color, #2d1b2d);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+            .media-item:hover {
+                transform: translateY(-5px);
+                border-color: var(--neon-purple, #bf00ff);
+                box-shadow: 0 8px 32px rgba(191, 0, 255, 0.2);
+            }
+
+            .media-item img {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+                display: block;
+                transition: transform 0.3s ease;
+            }
+
+            .media-item:hover img {
+                transform: scale(1.05);
+            }
+
+        /* Project Details Page */
+        .project-details-page {
+            max-width: 1200px;
+            margin: 100px auto 0;
+            padding: 2rem;
+        }
+
+            .project-details-page h2 {
+                font-family: "Orbitron", monospace;
+                font-size: clamp(2rem, 4vw, 3rem);
+                margin-bottom: 2rem;
+                background: linear-gradient(135deg, #bf00ff 0%, #8b00ff 50%, #ff00ff 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+        /* Section Styles */
+        .project-details-section {
+            background: rgba(26, 26, 26, 0.6);
+            border: 1px solid var(--border-color, #2d1b2d);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+            .project-details-section h3 {
+                font-family: "Orbitron", monospace;
+                font-size: 1.5rem;
+                margin: 1.5rem 0 1rem 0;
+                color: var(--neon-purple, #bf00ff);
+            }
+
+                .project-details-section h3:first-of-type {
+                    margin-top: 0;
+                }
+
+            .project-details-section p {
+                color: var(--text-secondary, #e0e0e0);
+                line-height: 1.8;
+                font-size: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .project-details-section ul {
+                list-style: none;
+                padding-left: 0;
+                margin: 1rem 0;
+            }
+
+            .project-details-section li {
+                color: var(--text-secondary, #e0e0e0);
+                line-height: 1.8;
+                font-size: 1rem;
+                padding-left: 1.5rem;
+                position: relative;
+                margin-bottom: 0.5rem;
+            }
+
+                .project-details-section li::before {
+                    content: "▹";
+                    position: absolute;
+                    left: 0;
+                    color: var(--neon-purple, #bf00ff);
+                }
+
+        .view-project-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 1.6rem;
+            background: linear-gradient(135deg, #bf00ff 0%, #8b00ff 50%, #ff00ff 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+            .view-project-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(191, 0, 255, 0.4);
+            }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="nav-left"><h1>Zohib.</h1></div>
+            <div class="nav-right" id="nav-menu">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="portfolio.html">Portfolio</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="project-details-page">
+        <h2>River Drift</h2>
+
+        <!-- Project Media -->
+        <div class="project-media">
+            <!-- Video -->
+            <div class="media-item">
+                <video controls>
+                    <source src="videos/river-drift-video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <!-- Image 1 -->
+            <div class="media-item" data-index="0">
+                <img src="images/river-drift-image1.jpg" alt="River Drift - Gameplay Overview">
+            </div>
+            <!-- Image 2 -->
+            <div class="media-item" data-index="1">
+                <img src="images/river-drift-image2.jpg" alt="River Drift - Boat Movement">
+            </div>
+            <!-- Image 3 -->
+            <div class="media-item" data-index="2">
+                <img src="images/river-drift-image3.jpg" alt="River Drift - Fish Collection">
+            </div>
+        </div>
+
+        <!-- Project Details with Structured Sections -->
+        <div class="project-details-section">
+            <h3>Overview</h3>
+            <p>River Drift is a fast paced endless runner game developed in Unity during a two day game jam at the University of Greenwich. The theme of the game jam was Small Boats.</p>
+            <p>The game focuses on a simple but engaging gameplay loop where the player controls a small boat drifting down a river, collecting fish while avoiding obstacles. The goal was to design and deliver a fully playable prototype within a very limited timeframe, prioritising functionality, clarity and teamwork.</p>
+
+            <h3>My Role</h3>
+            <p>I worked as a Scrum Master and programmer, taking responsibility for organising the team, managing progress and ensuring we stayed on track during the two day deadline.</p>
+            <p>I contributed to the core gameplay systems, including movement mechanics, UI, game over system and overall implementation. I was also heavily involved in shaping the initial idea and adapting it to fit the scope of the game jam.</p>
+
+            <h3>Key Features</h3>
+            <ul>
+                <li>Endless runner style gameplay with automatic forward movement</li>
+                <li>Player controlled left and right movement for navigation</li>
+                <li>Fish collection system with score tracking</li>
+                <li>Obstacle system using rocks that trigger game over on collision</li>
+                <li>Game over screen with restart and quit options</li>
+                <li>Snowy river environment using third party assets</li>
+                <li>Simple and clear gameplay loop designed for quick sessions</li>
+            </ul>
+
+            <h3>Technical Implementation</h3>
+            <p>The game was developed in Unity using C#. The boat moves forward automatically, while the player controls horizontal movement to avoid obstacles and collect fish. This created a simple but responsive control system suitable for a short development cycle.</p>
+            <p>An endless spawning system was implemented to ensure the river and environment continued indefinitely. This allowed the game to maintain a continuous gameplay loop without interruptions.</p>
+            <p>Collision detection was used for both obstacles and collectibles. Rocks trigger a game over state, while fish increase the player's score. A UI system was added to display the score and handle the game over menu, including options to restart or quit the game.</p>
+            <p>Free assets from the Unity Asset Store were used to quickly build a visually complete environment, allowing the team to focus more on gameplay and functionality rather than asset creation.</p>
+
+            <h3>Challenges</h3>
+            <p>One of the main challenges was working under a strict two day deadline. This required careful decision making and constant focus on scope, ensuring that only achievable features were included.</p>
+            <p>There were also several technical issues during development. Boat movement did not work correctly at first, which required research and testing to fix. Another major issue was the environment disappearing due to problems with the spawning system, which initially broke the game.</p>
+            <p>Collision detection also caused problems, particularly with fish not being collected. This was eventually traced back to incorrect prefab setup rather than code, which highlighted the importance of understanding Unity components as well as scripting.</p>
+
+            <h3>Outcome</h3>
+            <p>River Drift was successfully completed as a playable prototype within the time limit. The game is simple, functional and visually clear, demonstrating the ability to take an idea and turn it into a working product under pressure.</p>
+            <p>This project strengthened my skills in rapid prototyping, problem solving, teamwork and time management. It also showed me how important it is to balance ambition with feasibility, especially in short development cycles.</p>
+        </div>
+
+        <!-- Back Button -->
+        <a href="portfolio.html" class="view-project-button">← Back to Portfolio</a>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="social-media">
+                <a href="mailto:zohibsala@gmail.com" class="social-link" aria-label="Email Contact">
+                    <svg class="social-icon gmail-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4.5-8 5-8-5V6l8 5 8-5v2.5Z" />
+                    </svg>
+                </a>
+                <a href="https://linkedin.com/in/zohib-sala" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
+                    <svg class="social-icon linkedin-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M20.447 20.452H16.89v-5.18c0-1.237-.026-2.83-1.724-2.83-1.725 0-1.988 1.347-1.988 2.739v5.271H9.62V9h3.41v1.561h.049c.476-.9 1.64-1.85 3.372-1.85 3.604 0 4.273 2.371 4.273 5.457v6.284zM5.337 7.433C4.19 7.433 3.27 6.507 3.27 5.368c0-1.139.92-2.063 2.067-2.063 1.14 0 2.06.925 2.06 2.063 0 1.139-.92 2.065-2.06 2.065zM6.999 20.452H3.675V9H7v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.454C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" />
+                    </svg>
+                </a>
+            </div>
+            <p class="footer-text">
+                &copy; 2026 Zohib Sala. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Enhanced Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <span class="lightbox-prev">‹</span>
+        <span class="lightbox-next">›</span>
+        <div class="lightbox-content"></div>
+        <div class="lightbox-counter"></div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        mobileMenuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuToggle.classList.toggle('active');
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ============================================
+        // ENHANCED LIGHTBOX WITH ARROW KEYS
+        // ============================================
+
+        // Get all media items and their images (excluding video)
+        const mediaItems = document.querySelectorAll('.media-item');
+        const images = Array.from(mediaItems)
+            .filter(item => item.querySelector('img') !== null)
+            .map(item => {
+                const img = item.querySelector('img');
+                return {
+                    src: img.src,
+                    alt: img.alt
+                };
+            });
+
+        let currentIndex = 0;
+        const lightbox = document.getElementById('lightbox');
+        const lightboxContent = document.querySelector('.lightbox-content');
+        const closeBtn = document.querySelector('.lightbox-close');
+        const prevBtn = document.querySelector('.lightbox-prev');
+        const nextBtn = document.querySelector('.lightbox-next');
+        const counter = document.querySelector('.lightbox-counter');
+
+        // Open lightbox with specific image
+        function openLightbox(index) {
+            if (images.length === 0) return;
+            currentIndex = index;
+            const image = images[currentIndex];
+            lightboxContent.innerHTML = `<img src="${image.src}" alt="${image.alt}">`;
+            counter.textContent = `${currentIndex + 1} / ${images.length}`;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close lightbox
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Navigate to previous image
+        function prevImage() {
+            if (images.length === 0) return;
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            const image = images[currentIndex];
+            lightboxContent.innerHTML = `<img src="${image.src}" alt="${image.alt}">`;
+            counter.textContent = `${currentIndex + 1} / ${images.length}`;
+        }
+
+        // Navigate to next image
+        function nextImage() {
+            if (images.length === 0) return;
+            currentIndex = (currentIndex + 1) % images.length;
+            const image = images[currentIndex];
+            lightboxContent.innerHTML = `<img src="${image.src}" alt="${image.alt}">`;
+            counter.textContent = `${currentIndex + 1} / ${images.length}`;
+        }
+
+        // Add click handlers to each media item (only for images, not video)
+        mediaItems.forEach((item) => {
+            const img = item.querySelector('img');
+            if (img) {
+                item.addEventListener('click', () => {
+                    const imgIndex = images.findIndex(imgData => imgData.src === img.src);
+                    if (imgIndex !== -1) openLightbox(imgIndex);
+                });
+            }
+        });
+
+        // Button event listeners
+        closeBtn.addEventListener('click', closeLightbox);
+        prevBtn.addEventListener('click', prevImage);
+        nextBtn.addEventListener('click', nextImage);
+
+        // Close lightbox when clicking outside the image
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        // ============================================
+        // KEYBOARD NAVIGATION (Arrow Keys)
+        // ============================================
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+
+            switch (e.key) {
+                case 'ArrowLeft':
+                    prevImage();
+                    break;
+                case 'ArrowRight':
+                    nextImage();
+                    break;
+                case 'Escape':
+                    closeLightbox();
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>

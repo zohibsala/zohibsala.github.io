@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tower - Zohib Sala</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Enhanced Lightbox Styles - Cyberpunk Theme */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+            .lightbox.active {
+                display: flex;
+                opacity: 1;
+            }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            text-align: center;
+            animation: zoomIn 0.3s ease-out;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .lightbox-content img {
+            max-width: 90vw;
+            max-height: 85vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(191, 0, 255, 0.3);
+            border: 1px solid var(--neon-purple, #bf00ff);
+        }
+
+        /* Close Button */
+        .lightbox-close {
+            position: fixed;
+            top: 25px;
+            right: 35px;
+            color: white;
+            font-size: 45px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 2001;
+            transition: all 0.3s ease;
+            background: rgba(191, 0, 255, 0.2);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--neon-purple, #bf00ff);
+        }
+
+            .lightbox-close:hover {
+                background: rgba(191, 0, 255, 0.5);
+                transform: rotate(90deg);
+                color: white;
+            }
+
+        /* Navigation Arrows */
+        .lightbox-prev,
+        .lightbox-next {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(191, 0, 255, 0.2);
+            backdrop-filter: blur(5px);
+            color: white;
+            font-size: 2rem;
+            padding: 1rem;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 2001;
+            border: 1px solid var(--neon-purple, #bf00ff);
+        }
+
+        .lightbox-prev {
+            left: 25px;
+        }
+
+        .lightbox-next {
+            right: 25px;
+        }
+
+            .lightbox-prev:hover,
+            .lightbox-next:hover {
+                background: rgba(191, 0, 255, 0.5);
+                transform: translateY(-50%) scale(1.1);
+                box-shadow: 0 0 20px rgba(191, 0, 255, 0.5);
+            }
+
+        /* Image Counter */
+        .lightbox-counter {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            color: var(--neon-purple, #bf00ff);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-family: "Orbitron", monospace;
+            font-size: 0.9rem;
+            z-index: 2001;
+            border: 1px solid var(--neon-purple, #bf00ff);
+            letter-spacing: 1px;
+        }
+
+        /* Video styling */
+        .media-item video {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+            border-radius: 16px;
+            cursor: pointer;
+        }
+
+        .media-item:hover video {
+            transform: scale(1.05);
+        }
+
+        /* Media item hover effects */
+        .project-media {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .media-item {
+            background: rgba(26, 26, 26, 0.8);
+            border: 1px solid var(--border-color, #2d1b2d);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+            .media-item:hover {
+                transform: translateY(-5px);
+                border-color: var(--neon-purple, #bf00ff);
+                box-shadow: 0 8px 32px rgba(191, 0, 255, 0.2);
+            }
+
+            .media-item img {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+                display: block;
+                transition: transform 0.3s ease;
+            }
+
+            .media-item:hover img {
+                transform: scale(1.05);
+            }
+
+        /* Project Details Page */
+        .project-details-page {
+            max-width: 1200px;
+            margin: 100px auto 0;
+            padding: 2rem;
+        }
+
+            .project-details-page h2 {
+                font-family: "Orbitron", monospace;
+                font-size: clamp(2rem, 4vw, 3rem);
+                margin-bottom: 2rem;
+                background: linear-gradient(135deg, #bf00ff 0%, #8b00ff 50%, #ff00ff 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+        /* Section Styles */
+        .project-details-section {
+            background: rgba(26, 26, 26, 0.6);
+            border: 1px solid var(--border-color, #2d1b2d);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+            .project-details-section h3 {
+                font-family: "Orbitron", monospace;
+                font-size: 1.5rem;
+                margin: 1.5rem 0 1rem 0;
+                color: var(--neon-purple, #bf00ff);
+            }
+
+                .project-details-section h3:first-of-type {
+                    margin-top: 0;
+                }
+
+            .project-details-section p {
+                color: var(--text-secondary, #e0e0e0);
+                line-height: 1.8;
+                font-size: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .project-details-section ul {
+                list-style: none;
+                padding-left: 0;
+                margin: 1rem 0;
+            }
+
+            .project-details-section li {
+                color: var(--text-secondary, #e0e0e0);
+                line-height: 1.8;
+                font-size: 1rem;
+                padding-left: 1.5rem;
+                position: relative;
+                margin-bottom: 0.5rem;
+            }
+
+                .project-details-section li::before {
+                    content: "▹";
+                    position: absolute;
+                    left: 0;
+                    color: var(--neon-purple, #bf00ff);
+                }
+
+        .view-project-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 1.6rem;
+            background: linear-gradient(135deg, #bf00ff 0%, #8b00ff 50%, #ff00ff 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+            .view-project-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(191, 0, 255, 0.4);
+            }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="nav-left"><h1>Zohib.</h1></div>
+            <div class="nav-right" id="nav-menu">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="portfolio.html">Portfolio</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="project-details-page">
+        <h2>Tower</h2>
+
+        <!-- Project Media -->
+        <div class="project-media">
+            <!-- Video -->
+            <div class="media-item">
+                <video controls>
+                    <source src="videos/tower-video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <!-- Image 1 -->
+            <div class="media-item" data-index="0">
+                <img src="images/tower-image1.jpg" alt="Tower - Destruction Overview">
+            </div>
+            <!-- Image 2 -->
+            <div class="media-item" data-index="1">
+                <img src="images/tower-image2.jpg" alt="Tower - Procedural Fracturing">
+            </div>
+            <!-- Image 3 -->
+            <div class="media-item" data-index="2">
+                <img src="images/tower-image3.jpg" alt="Tower - Rigid Body Dynamics">
+            </div>
+        </div>
+
+        <!-- Project Details with Structured Sections -->
+        <div class="project-details-section">
+            <h3>Overview</h3>
+            <p>The Tower project is a procedural destruction and visual effects project developed using Houdini, focused on creating a destructible historical structure for real time game engines.</p>
+            <p>The goal was to simulate a believable tower collapse using a combination of rigid body dynamics, procedural fracturing, debris generation and atmospheric dust effects. The project was designed as a contained scene to demonstrate how multiple VFX techniques can be combined into a single cohesive system suitable for game development.</p>
+            <p>The visual direction was inspired by historical architecture seen in games such as Assassin's Creed, with an emphasis on realism, weight and physical behaviour rather than exaggerated destruction.</p>
+
+            <h3>My Role</h3>
+            <p>I was responsible for the full development of the project, including modelling, procedural setup, simulation design and engine integration planning.</p>
+
+            <h3>Key Features</h3>
+            <ul>
+                <li>Procedural destruction system built using Houdini</li>
+                <li>Rigid body dynamics simulation for realistic structural collapse</li>
+                <li>Voronoi and material based fracturing for controlled breakage</li>
+                <li>Constraint based system to simulate structural resistance and staged collapse</li>
+                <li>Secondary debris generation using particle systems</li>
+                <li>Dust and smoke simulation using volumetric effects</li>
+                <li>Houdini Digital Asset with exposed parameters for real time control</li>
+                <li>Designed for integration into Unity and Unreal Engine pipelines</li>
+            </ul>
+
+            <h3>Technical Implementation</h3>
+            <p>The base tower model was created in Autodesk Maya and then imported into Houdini for procedural destruction and simulation work. Houdini was used due to its node based workflow and strong support for procedural VFX pipelines.</p>
+            <p>The destruction system was built as a layered process. The tower was fractured using Voronoi techniques to create both large structural pieces and smaller fragments. Constraint networks were applied to control how different parts of the tower held together and broke apart, allowing for a more realistic staged collapse rather than immediate destruction.</p>
+            <p>Rigid body dynamics were handled using the RBD Solver, which simulated gravity, collisions and debris interaction. Packed geometry was used to optimise performance while maintaining a high number of fragments.</p>
+            <p>Secondary debris was generated using particle systems, allowing smaller fragments to be emitted during the collapse. These were optimised using instancing techniques to reduce performance cost.</p>
+            <p>Dust and smoke effects were created using volumetric workflows and the Pyro Solver. These effects were driven by the destruction simulation to ensure they reacted naturally to the collapsing structure.</p>
+            <p>The entire system was designed procedurally and packaged as a Houdini Digital Asset, allowing key parameters such as scale to be adjusted externally for reuse in a game engine.</p>
+
+            <h3>Challenges</h3>
+            <p>One of the main challenges was learning Houdini for the first time, as its node based workflow and data flow system required a completely different approach compared to other software.</p>
+            <p>Another challenge was achieving believable destruction behaviour. Early simulations produced unrealistic debris sizes and movement, which required rebuilding parts of the node network and refining fracture settings and constraints.</p>
+            <p>Integrating the Houdini Digital Asset for engine use also presented issues, as some parameters caused instability or failed to transfer correctly. This required simplifying the system and focusing on reliable controls.</p>
+            <p>Material and texture issues also occurred, including flickering and rendering problems, which led to removing textures in order to maintain stability and complete the core VFX objectives.</p>
+
+            <h3>Outcome</h3>
+            <p>The Tower project demonstrates my understanding of procedural VFX workflows and real time destruction systems using Houdini.</p>
+            <p>It highlights my ability to combine multiple simulation techniques into a single cohesive system while maintaining performance awareness and technical stability. The project also reflects my ability to learn complex software quickly and apply industry relevant workflows such as procedural asset creation and engine integration.</p>
+            <p>This project strengthened my skills in Houdini, procedural problem solving, simulation design and technical art pipelines, providing a strong foundation for future work in VFX and game development.</p>
+        </div>
+
+        <!-- Back Button -->
+        <a href="portfolio.html" class="view-project-button">← Back to Portfolio</a>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="social-media">
+                <a href="mailto:zohibsala@gmail.com" class="social-link" aria-label="Email Contact">
+                    <svg class="social-icon gmail-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4.5-8 5-8-5V6l8 5 8-5v2.5Z" />
+                    </svg>
+                </a>
+                <a href="https://linkedin.com/in/zohib-sala" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
+                    <svg class="social-icon linkedin-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M20.447 20.452H16.89v-5.18c0-1.237-.026-2.83-1.724-2.83-1.725 0-1.988 1.347-1.988 2.739v5.271H9.62V9h3.41v1.561h.049c.476-.9 1.64-1.85 3.372-1.85 3.604 0 4.273 2.371 4.273 5.457v6.284zM5.337 7.433C4.19 7.433 3.27 6.507 3.27 5.368c0-1.139.92-2.063 2.067-2.063 1.14 0 2.06.925 2.06 2.063 0 1.139-.92 2.065-2.06 2.065zM6.999 20.452H3.675V9H7v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.454C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" />
+                    </svg>
+                </a>
+            </div>
+            <p class="footer-text">
+                &copy; 2026 Zohib Sala. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Enhanced Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <span class="lightbox-prev">‹</span>
+        <span class="lightbox-next">›</span>
+        <div class="lightbox-content"></div>
+        <div class="lightbox-counter"></div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        mobileMenuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuToggle.classList.toggle('active');
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ============================================
+        // ENHANCED LIGHTBOX WITH ARROW KEYS
+        // ============================================
+
+        // Get all media items and their images (excluding video)
+        const mediaItems = document.querySelectorAll('.media-item');
+        const images = Array.from(mediaItems)
+            .filter(item => item.querySelector('img') !== null)
+            .map(item => {
+                const img = item.querySelector('img');
+                return {
+                    src: img.src,
+                    alt: img.alt
+                };
+            });
+
+        let currentIndex = 0;
+        const lightbox = document.getElementById('lightbox');
+        const lightboxContent = document.querySelector('.lightbox-content');
+        const closeBtn = document.querySelector('.lightbox-close');
+        const prevBtn = document.querySelector('.lightbox-prev');
+        const nextBtn = document.querySelector('.lightbox-next');
+        const counter = document.querySelector('.lightbox-counter');
+
+        // Open lightbox with specific image
+        function openLightbox(index) {
+            if (images.length === 0) return;
+            currentIndex = index;
+            const image = images[currentIndex];
+            lightboxContent.innerHTML = `<img src="${image.src}" alt="${image.alt}">`;
+            counter.textContent = `${currentIndex + 1} / ${images.length}`;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close lightbox
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Navigate to previous image
+        function prevImage() {
+            if (images.length === 0) return;
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            const image = images[currentIndex];
+            lightboxContent.innerHTML = `<img src="${image.src}" alt="${image.alt}">`;
+            counter.textContent = `${currentIndex + 1} / ${images.length}`;
+        }
+
+        // Navigate to next image
+        function nextImage() {
+            if (images.length === 0) return;
+            currentIndex = (currentIndex + 1) % images.length;
+            const image = images[currentIndex];
+            lightboxContent.innerHTML = `<img src="${image.src}" alt="${image.alt}">`;
+            counter.textContent = `${currentIndex + 1} / ${images.length}`;
+        }
+
+        // Add click handlers to each media item (only for images, not video)
+        mediaItems.forEach((item) => {
+            const img = item.querySelector('img');
+            if (img) {
+                item.addEventListener('click', () => {
+                    const imgIndex = images.findIndex(imgData => imgData.src === img.src);
+                    if (imgIndex !== -1) openLightbox(imgIndex);
+                });
+            }
+        });
+
+        // Button event listeners
+        closeBtn.addEventListener('click', closeLightbox);
+        prevBtn.addEventListener('click', prevImage);
+        nextBtn.addEventListener('click', nextImage);
+
+        // Close lightbox when clicking outside the image
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        // ============================================
+        // KEYBOARD NAVIGATION (Arrow Keys)
+        // ============================================
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+
+            switch (e.key) {
+                case 'ArrowLeft':
+                    prevImage();
+                    break;
+                case 'ArrowRight':
+                    nextImage();
+                    break;
+                case 'Escape':
+                    closeLightbox();
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home - Zohib Sala</title>
+    <meta
+      name="description"
+      content="Portfolio of Zohib Sala"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav id="navbar">
+      <div class="nav-container">
+        <div class="nav-left">
+          <h1>Zohib.</h1>
+        </div>
+        <div class="nav-right" id="nav-menu">
+          <a href="index.html" class="active">Home</a>
+          <a href="about.html">About</a>
+          <a href="portfolio.html">Portfolio</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="home-page">
+      <section class="hero-section fade-in-up">
+        <h1 class="hero-title">3D Artist / Technical Artist</h1>
+        <p class="hero-subtitle">
+          Bringing ideas to life through code & creativity.
+        </p>
+        
+        <div class="trailer-video" style="margin-top: 1rem;">
+          <video controls poster="images/portfolio-poster.jpg">
+            <source src="videos/portfolio-trailer.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        
+
+        <div class="hero-actions">
+          <a href="portfolio.html" class="btn-primary">View Projects</a>
+          <a href="contact.html" class="btn-secondary">Get In Touch</a>
+        </div>
+      </section>
+
+      <!-- Tic-Tac-Toe Game -->
+      <h2 class="fade-in-up hero-subtitle" style="text-align:center; margin-top: 2rem;">Fancy a quick game?</h2>
+      <section id="tic-tac-toe" class="fade-in-up">
+        <style>
+          #tic-tac-toe { max-width: 900px; margin: 3rem auto; padding: 2rem; background: rgba(26, 26, 26, 0.8); border: 1px solid var(--border-color); border-radius: 20px; box-shadow: var(--shadow-card); }
+          #tic-tac-toe .game-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+          #tic-tac-toe .title { font-family: "Orbitron", monospace; font-size: clamp(1.6rem, 3vw, 2rem); background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+          #tic-tac-toe .controls { display: flex; align-items: center; gap: 12px; }
+          #tic-tac-toe .btn { padding: 10px 16px; border: 1px solid var(--border-color); background: transparent; color: var(--text-primary); cursor: pointer; border-radius: 12px; transition: all .2s ease; }
+          #tic-tac-toe .btn:hover { border-color: var(--primary-accent); transform: translateY(-1px); box-shadow: 0 5px 15px rgba(0,212,255,.2); }
+          #tic-tac-toe .status { margin: 12px 0 20px; min-height: 24px; font-weight: 600; letter-spacing: .5px; color: var(--text-secondary); }
+          #tic-tac-toe .board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; max-width: 420px; margin: 0 auto; }
+          #tic-tac-toe .cell { aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; font-size: clamp(32px, 6vw, 48px); font-weight: 900; border: 1px solid var(--border-color); border-radius: 12px; cursor: pointer; user-select: none; transition: background .15s ease, transform .1s ease, border-color .2s ease; background: rgba(0,0,0,0.2); }
+          #tic-tac-toe .cell .mark { font-family: "Orbitron", monospace; background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; display: inline-block; }
+          #tic-tac-toe .cell:hover { background: rgba(0, 212, 255, 0.08); border-color: var(--primary-accent); }
+          #tic-tac-toe .cell.disabled { cursor: not-allowed; opacity: .7; }
+          #tic-tac-toe .score { display: flex; justify-content: center; gap: 20px; margin-top: 16px; font-size: 14px; color: var(--text-muted); }
+        </style>
+        <div class="game-header">
+          <h2 class="title">Tic‑Tac‑Toe</h2>
+          <div class="controls">
+            <button id="new-game" class="btn" type="button">New Game</button>
+          </div>
+        </div>
+        <div id="status" class="status">Your turn. You are X.</div>
+        <div id="board" class="board" aria-label="Tic Tac Toe Board"></div>
+        <div class="score">
+          <span id="score-player">You: 0</span>
+          <span id="score-ai">AI: 0</span>
+          <span id="score-draws">Draws: 0</span>
+        </div>
+      </section>
+
+      
+
+      
+    </main>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-content">
+    <div class="social-media">
+      <a href="mailto:zohibsala@gmail.com" class="social-link" aria-label="Email Contact">
+        <svg class="social-icon gmail-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4.5-8 5-8-5V6l8 5 8-5v2.5Z"/>
+        </svg>
+      </a>
+      <a href="https://linkedin.com/in/zohib-sala" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
+        <svg class="social-icon linkedin-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M20.447 20.452H16.89v-5.18c0-1.237-.026-2.83-1.724-2.83-1.725 0-1.988 1.347-1.988 2.739v5.271H9.62V9h3.41v1.561h.049c.476-.9 1.64-1.85 3.372-1.85 3.604 0 4.273 2.371 4.273 5.457v6.284zM5.337 7.433C4.19 7.433 3.27 6.507 3.27 5.368c0-1.139.92-2.063 2.067-2.063 1.14 0 2.06.925 2.06 2.063 0 1.139-.92 2.065-2.06 2.065zM6.999 20.452H3.675V9H7v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.454C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/>
+        </svg>
+      </a>
+    </div>
+    <p class="footer-text">
+      &copy; 2026 Zohib Sala. All rights reserved.
+    </p>
+  </div>
+</footer>
+
+    <script>
+      // Mobile menu toggle
+      const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
+      const navMenu = document.getElementById("nav-menu");
+
+      mobileMenuToggle.addEventListener("click", () => {
+        navMenu.classList.toggle("active");
+        mobileMenuToggle.classList.toggle("active");
+      });
+
+      // Navbar scroll effect
+      const navbar = document.getElementById("navbar");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Fade in animation on scroll
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("fade-in-up");
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll("section").forEach((section) => {
+        observer.observe(section);
+      });
+
+      // Tic-Tac-Toe Game Logic (Single Player, Medium Difficulty)
+      (function initTicTacToe() {
+        const boardElement = document.getElementById("board");
+        if (!boardElement) return; // Guard if section is missing
+
+        const statusElement = document.getElementById("status");
+        const newGameButton = document.getElementById("new-game");
+        const scorePlayer = document.getElementById("score-player");
+        const scoreAi = document.getElementById("score-ai");
+        const scoreDraws = document.getElementById("score-draws");
+
+        const PLAYER = "X";
+        const AI = "O";
+        const WIN_LINES = [
+          [0, 1, 2],
+          [3, 4, 5],
+          [6, 7, 8],
+          [0, 3, 6],
+          [1, 4, 7],
+          [2, 5, 8],
+          [0, 4, 8],
+          [2, 4, 6],
+        ];
+
+        let board = Array(9).fill(null);
+        let gameActive = true;
+        let scores = { player: 0, ai: 0, draws: 0 };
+
+        function updateScores() {
+          scorePlayer.textContent = `You: ${scores.player}`;
+          scoreAi.textContent = `AI: ${scores.ai}`;
+          scoreDraws.textContent = `Draws: ${scores.draws}`;
+        }
+
+        function renderBoard() {
+          boardElement.innerHTML = "";
+          board.forEach((mark, index) => {
+            const cell = document.createElement("button");
+            cell.type = "button";
+            cell.className = "cell" + (gameActive ? "" : " disabled");
+            cell.setAttribute("aria-label", `Cell ${index + 1}`);
+            cell.dataset.index = String(index);
+            cell.innerHTML = mark ? `<span class="mark">${mark}</span>` : "";
+            cell.addEventListener("click", onCellClick);
+            boardElement.appendChild(cell);
+          });
+        }
+
+        function onCellClick(e) {
+          if (!gameActive) return;
+          const idx = Number(e.currentTarget.dataset.index);
+          if (board[idx]) return;
+          makeMove(idx, PLAYER);
+          const resultAfterPlayer = evaluateGameState();
+          if (resultAfterPlayer.finished) return finalize(resultAfterPlayer);
+          statusElement.textContent = "AI is thinking...";
+          disableBoard();
+          setTimeout(() => {
+            const aiIndex = chooseMediumAIMove();
+            makeMove(aiIndex, AI);
+            const resultAfterAI = evaluateGameState();
+            if (resultAfterAI.finished) return finalize(resultAfterAI);
+            statusElement.textContent = "Your turn. You are X.";
+            enableBoard();
+          }, 300);
+        }
+
+        function makeMove(index, mark) {
+          board[index] = mark;
+          renderBoard();
+        }
+
+        function disableBoard() {
+          boardElement.querySelectorAll('.cell').forEach((c) => c.classList.add('disabled'));
+        }
+
+        function enableBoard() {
+          boardElement.querySelectorAll('.cell').forEach((c) => c.classList.remove('disabled'));
+        }
+
+        function evaluateGameState() {
+          for (const [a, b, c] of WIN_LINES) {
+            if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+              return { finished: true, winner: board[a] };
+            }
+          }
+          if (board.every((m) => m)) return { finished: true, winner: null };
+          return { finished: false };
+        }
+
+        // Medium AI: win > block > center > corners > sides
+        function chooseMediumAIMove() {
+          // Try to win
+          let move = findWinningMove(AI);
+          if (move !== null) return move;
+          // Try to block player's win
+          move = findWinningMove(PLAYER);
+          if (move !== null) return move;
+          // Take center if free
+          if (!board[4]) return 4;
+          // Take a corner
+          const corners = [0, 2, 6, 8].filter((i) => !board[i]);
+          if (corners.length) return randomChoice(corners);
+          // Take a side
+          const sides = [1, 3, 5, 7].filter((i) => !board[i]);
+          return randomChoice(sides);
+        }
+
+        function findWinningMove(mark) {
+          for (const [a, b, c] of WIN_LINES) {
+            const line = [board[a], board[b], board[c]];
+            const countMark = line.filter((m) => m === mark).length;
+            const countEmpty = line.filter((m) => !m).length;
+            if (countMark === 2 && countEmpty === 1) {
+              if (!board[a]) return a;
+              if (!board[b]) return b;
+              if (!board[c]) return c;
+            }
+          }
+          return null;
+        }
+
+        function randomChoice(arr) {
+          return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        function highlightWin(winner) {
+          for (const [a, b, c] of WIN_LINES) {
+            if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+              const cells = boardElement.querySelectorAll('.cell');
+              [a, b, c].forEach((i) => cells[i].style.background = 'rgba(0,255,170,0.15)');
+              break;
+            }
+          }
+        }
+
+        function finalize(result) {
+          gameActive = false;
+          if (result.winner === PLAYER) {
+            statusElement.textContent = "You win!";
+            scores.player += 1;
+            highlightWin(PLAYER);
+          } else if (result.winner === AI) {
+            statusElement.textContent = "AI wins.";
+            scores.ai += 1;
+            highlightWin(AI);
+          } else {
+            statusElement.textContent = "It's a draw.";
+            scores.draws += 1;
+          }
+          updateScores();
+          disableBoard();
+        }
+
+        function resetGame() {
+          board = Array(9).fill(null);
+          gameActive = true;
+          statusElement.textContent = "Your turn. You are X.";
+          renderBoard();
+          enableBoard();
+        }
+
+        newGameButton.addEventListener("click", resetGame);
+
+        // Initial render
+        updateScores();
+        renderBoard();
+      })();
+    </script>
+  </body>
+</html>
