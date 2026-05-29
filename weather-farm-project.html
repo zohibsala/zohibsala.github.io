@@ -302,22 +302,22 @@
         <!-- Project Media -->
         <div class="project-media">
             <!-- Video -->
-            <div class="media-item video-item">
+            <div class="media-item">
                 <video controls>
                     <source src="videos/weather-farm-video.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
             <!-- Image 1 -->
-            <div class="media-item" data-index="1">
+            <div class="media-item" data-index="0">
                 <img src="images/weather-farm-image1.jpg" alt="Weather Farm">
             </div>
             <!-- Image 2 -->
-            <div class="media-item" data-index="2">
+            <div class="media-item" data-index="1">
                 <img src="images/weather-farm-image2.jpg" alt="Weather Farm">
             </div>
-            <!-- Image 2 -->
-            <div class="media-item" data-index="3">
+            <!-- Image 3 -->
+            <div class="media-item" data-index="2">
                 <img src="images/weather-farm-image3.jpg" alt="Weather Farm">
             </div>
         </div>
@@ -413,19 +413,17 @@
             }
         });
 
-        // ============================================
-        // ENHANCED LIGHTBOX WITH ARROW KEYS
-        // ============================================
-
-        // Get all media items and their images
+        // Enhanced Lightbox with Arrow Keys
         const mediaItems = document.querySelectorAll('.media-item');
-        const images = Array.from(mediaItems).map(item => {
-            const img = item.querySelector('img');
-            return {
-                src: img.src,
-                alt: img.alt
-            };
-        });
+        const images = Array.from(mediaItems)
+            .filter(item => item.querySelector('img') !== null)
+            .map(item => {
+                const img = item.querySelector('img');
+                return {
+                    src: img.src,
+                    alt: img.alt
+                };
+            });
 
         let currentIndex = 0;
         const lightbox = document.getElementById('lightbox');
@@ -435,8 +433,8 @@
         const nextBtn = document.querySelector('.lightbox-next');
         const counter = document.querySelector('.lightbox-counter');
 
-        // Open lightbox with specific image
         function openLightbox(index) {
+            if (images.length === 0) return;
             currentIndex = index;
             const image = images[currentIndex];
             lightboxContent.innerHTML = `<img src="${image.src}" alt="${image.alt}">`;
@@ -445,46 +443,45 @@
             document.body.style.overflow = 'hidden';
         }
 
-        // Close lightbox
         function closeLightbox() {
             lightbox.classList.remove('active');
             document.body.style.overflow = 'auto';
         }
 
-        // Navigate to previous image
         function prevImage() {
+            if (images.length === 0) return;
             currentIndex = (currentIndex - 1 + images.length) % images.length;
             const image = images[currentIndex];
             lightboxContent.innerHTML = `<img src="${image.src}" alt="${image.alt}">`;
             counter.textContent = `${currentIndex + 1} / ${images.length}`;
         }
 
-        // Navigate to next image
         function nextImage() {
+            if (images.length === 0) return;
             currentIndex = (currentIndex + 1) % images.length;
             const image = images[currentIndex];
             lightboxContent.innerHTML = `<img src="${image.src}" alt="${image.alt}">`;
             counter.textContent = `${currentIndex + 1} / ${images.length}`;
         }
 
-        // Add click handlers to each media item
-        mediaItems.forEach((item, index) => {
-            item.addEventListener('click', () => openLightbox(index));
+        mediaItems.forEach((item) => {
+            const img = item.querySelector('img');
+            if (img) {
+                item.addEventListener('click', () => {
+                    const imgIndex = images.findIndex(imgData => imgData.src === img.src);
+                    if (imgIndex !== -1) openLightbox(imgIndex);
+                });
+            }
         });
 
-        // Button event listeners
         closeBtn.addEventListener('click', closeLightbox);
         prevBtn.addEventListener('click', prevImage);
         nextBtn.addEventListener('click', nextImage);
 
-        // Close lightbox when clicking outside the image
         lightbox.addEventListener('click', (e) => {
             if (e.target === lightbox) closeLightbox();
         });
 
-        // ============================================
-        // KEYBOARD NAVIGATION (Arrow Keys)
-        // ============================================
         document.addEventListener('keydown', (e) => {
             if (!lightbox.classList.contains('active')) return;
 
