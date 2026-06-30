@@ -143,21 +143,7 @@
             letter-spacing: 1px;
         }
 
-        /* Video styling */
-        .media-item video {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.3s ease;
-            border-radius: 16px;
-        }
-
-        .media-item:hover video {
-            transform: scale(1.05);
-        }
-
-        /* Media item hover effects */
+        /* Media item with caption */
         .project-media {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -172,6 +158,9 @@
             overflow: hidden;
             transition: all 0.3s ease;
             cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
         }
 
             .media-item:hover {
@@ -180,17 +169,57 @@
                 box-shadow: 0 8px 32px rgba(191, 0, 255, 0.2);
             }
 
+            .media-item video {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+                display: block;
+                transition: transform 0.3s ease;
+                flex-shrink: 0;
+            }
+
+            .media-item:hover video {
+                transform: scale(1.05);
+            }
+
             .media-item img {
                 width: 100%;
                 height: 200px;
                 object-fit: cover;
                 display: block;
                 transition: transform 0.3s ease;
+                flex-shrink: 0;
             }
 
             .media-item:hover img {
                 transform: scale(1.05);
             }
+
+        /* Caption - full width */
+        .media-caption {
+            padding: 10px 14px;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+            border-top: 1px solid var(--neon-purple, #bf00ff);
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-secondary, #e0e0e0);
+            font-weight: 400;
+            letter-spacing: 0.3px;
+            transition: all 0.3s ease;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            flex: 1;
+        }
+
+        .media-item:hover .media-caption {
+            background: rgba(191, 0, 255, 0.15);
+            border-top-color: var(--neon-pink, #ff00ff);
+            color: #ffffff;
+        }
 
         /* Project Details Page */
         .project-details-page {
@@ -307,18 +336,37 @@
                     <source src="videos/weather-farm-video.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
+                <div class="media-caption">Overview of how to play Weather Farm</div>
             </div>
             <!-- Image 1 -->
             <div class="media-item" data-index="0">
                 <img src="images/weather-farm-image1.jpg" alt="Weather Farm">
+                <div class="media-caption">My prototype sketch of Weather Farm</div>
             </div>
             <!-- Image 2 -->
             <div class="media-item" data-index="1">
                 <img src="images/weather-farm-image2.jpg" alt="Weather Farm">
+                <div class="media-caption">First look and prototype</div>
             </div>
             <!-- Image 3 -->
             <div class="media-item" data-index="2">
                 <img src="images/weather-farm-image3.jpg" alt="Weather Farm">
+                <div class="media-caption">During rainy weather condition with ready crops</div>
+            </div>
+            <!-- Image 4 -->
+            <div class="media-item" data-index="3">
+                <img src="images/weather-farm-image4.jpg" alt="Weather Farm">
+                <div class="media-caption">During windy weather condition</div>
+            </div>
+            <!-- Image 5 -->
+            <div class="media-item" data-index="4">
+                <img src="images/weather-farm-image5.jpg" alt="Weather Farm">
+                <div class="media-caption">During snowy weather condition while crops are growing</div>
+            </div>
+            <!-- Image 6 -->
+            <div class="media-item" data-index="5">
+                <img src="images/weather-farm-image6.jpg" alt="Weather Farm">
+                <div class="media-caption">Behind the scenes testing Weather Farm on an Android device</div>
             </div>
         </div>
 

@@ -143,7 +143,7 @@
             letter-spacing: 1px;
         }
 
-        /* Media item hover effects */
+        /* Media item with caption */
         .project-media {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -158,6 +158,9 @@
             overflow: hidden;
             transition: all 0.3s ease;
             cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
         }
 
             .media-item:hover {
@@ -172,11 +175,38 @@
                 object-fit: cover;
                 display: block;
                 transition: transform 0.3s ease;
+                flex-shrink: 0;
             }
 
             .media-item:hover img {
                 transform: scale(1.05);
             }
+
+        /* Caption - full width */
+        .media-caption {
+            padding: 10px 14px;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+            border-top: 1px solid var(--neon-purple, #bf00ff);
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-secondary, #e0e0e0);
+            font-weight: 400;
+            letter-spacing: 0.3px;
+            transition: all 0.3s ease;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            flex: 1;
+        }
+
+        .media-item:hover .media-caption {
+            background: rgba(191, 0, 255, 0.15);
+            border-top-color: var(--neon-pink, #ff00ff);
+            color: #ffffff;
+        }
 
         /* Project Details Page */
         .project-details-page {
@@ -289,15 +319,31 @@
         <div class="project-media">
             <div class="media-item" data-index="0">
                 <img src="images/kayi-tribe-image1.jpg" alt="Kayi Tribe">
+                <div class="media-caption">My sketch before 3D modelling</div>
             </div>
             <div class="media-item" data-index="1">
                 <img src="images/kayi-tribe-image2.jpg" alt="Kayi Tribe">
+                <div class="media-caption">Before textures in Autodesk Maya</div>
             </div>
             <div class="media-item" data-index="2">
                 <img src="images/kayi-tribe-image3.jpg" alt="Kayi Tribe">
+                <div class="media-caption">Hero shot of Kayi Tribe</div>
             </div>
             <div class="media-item" data-index="3">
                 <img src="images/kayi-tribe-image4.jpg" alt="Kayi Tribe">
+                <div class="media-caption">Leader's tent (yurt) and wooden stairs</div>
+            </div>
+            <div class="media-item" data-index="4">
+                <img src="images/kayi-tribe-image5.jpg" alt="Kayi Tribe">
+                <div class="media-caption">Kayi flag and Ottoman flagpole</div>
+            </div>
+            <div class="media-item" data-index="5">
+                <img src="images/kayi-tribe-image6.jpg" alt="Kayi Tribe">
+                <div class="media-caption">Behind the tribe</div>
+            </div>
+            <div class="media-item" data-index="6">
+                <img src="images/kayi-tribe-image7.jpg" alt="Kayi Tribe">
+                <div class="media-caption">Reference: Real life Kayi Tribe studio in Türkiye</div>
             </div>
         </div>
 
@@ -411,11 +457,7 @@
             }
         });
 
-        // ============================================
-        // ENHANCED LIGHTBOX WITH ARROW KEYS
-        // ============================================
-
-        // Get all media items and their images
+        // Enhanced Lightbox with Arrow Keys
         const mediaItems = document.querySelectorAll('.media-item');
         const images = Array.from(mediaItems).map(item => {
             const img = item.querySelector('img');
@@ -433,7 +475,6 @@
         const nextBtn = document.querySelector('.lightbox-next');
         const counter = document.querySelector('.lightbox-counter');
 
-        // Open lightbox with specific image
         function openLightbox(index) {
             currentIndex = index;
             const image = images[currentIndex];
@@ -443,13 +484,11 @@
             document.body.style.overflow = 'hidden';
         }
 
-        // Close lightbox
         function closeLightbox() {
             lightbox.classList.remove('active');
             document.body.style.overflow = 'auto';
         }
 
-        // Navigate to previous image
         function prevImage() {
             currentIndex = (currentIndex - 1 + images.length) % images.length;
             const image = images[currentIndex];
@@ -457,7 +496,6 @@
             counter.textContent = `${currentIndex + 1} / ${images.length}`;
         }
 
-        // Navigate to next image
         function nextImage() {
             currentIndex = (currentIndex + 1) % images.length;
             const image = images[currentIndex];
@@ -465,24 +503,18 @@
             counter.textContent = `${currentIndex + 1} / ${images.length}`;
         }
 
-        // Add click handlers to each media item
         mediaItems.forEach((item, index) => {
             item.addEventListener('click', () => openLightbox(index));
         });
 
-        // Button event listeners
         closeBtn.addEventListener('click', closeLightbox);
         prevBtn.addEventListener('click', prevImage);
         nextBtn.addEventListener('click', nextImage);
 
-        // Close lightbox when clicking outside the image
         lightbox.addEventListener('click', (e) => {
             if (e.target === lightbox) closeLightbox();
         });
 
-        // ============================================
-        // KEYBOARD NAVIGATION (Arrow Keys)
-        // ============================================
         document.addEventListener('keydown', (e) => {
             if (!lightbox.classList.contains('active')) return;
 

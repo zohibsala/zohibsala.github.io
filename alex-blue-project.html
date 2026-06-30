@@ -143,22 +143,7 @@
             letter-spacing: 1px;
         }
 
-        /* Video styling */
-        .media-item video {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.3s ease;
-            border-radius: 16px;
-            cursor: pointer;
-        }
-
-        .media-item:hover video {
-            transform: scale(1.05);
-        }
-
-        /* Media item hover effects */
+        /* Media item with caption */
         .project-media {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -173,6 +158,9 @@
             overflow: hidden;
             transition: all 0.3s ease;
             cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
         }
 
             .media-item:hover {
@@ -181,17 +169,57 @@
                 box-shadow: 0 8px 32px rgba(191, 0, 255, 0.2);
             }
 
+            .media-item video {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+                display: block;
+                transition: transform 0.3s ease;
+                flex-shrink: 0;
+            }
+
+            .media-item:hover video {
+                transform: scale(1.05);
+            }
+
             .media-item img {
                 width: 100%;
                 height: 200px;
                 object-fit: cover;
                 display: block;
                 transition: transform 0.3s ease;
+                flex-shrink: 0;
             }
 
             .media-item:hover img {
                 transform: scale(1.05);
             }
+
+        /* Caption - full width */
+        .media-caption {
+            padding: 10px 14px;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+            border-top: 1px solid var(--neon-purple, #bf00ff);
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-secondary, #e0e0e0);
+            font-weight: 400;
+            letter-spacing: 0.3px;
+            transition: all 0.3s ease;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            flex: 1;
+        }
+
+        .media-item:hover .media-caption {
+            background: rgba(191, 0, 255, 0.15);
+            border-top-color: var(--neon-pink, #ff00ff);
+            color: #ffffff;
+        }
 
         /* Project Details Page */
         .project-details-page {
@@ -308,18 +336,47 @@
                     <source src="videos/alex-blue-video.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
+                <div class="media-caption">Alex Blue character animation showreel</div>
             </div>
             <!-- Image 1 -->
             <div class="media-item" data-index="0">
                 <img src="images/alex-blue-image1.jpg" alt="Alex Blue">
+                <div class="media-caption">My sketch of Alex Blue</div>
             </div>
             <!-- Image 2 -->
             <div class="media-item" data-index="1">
                 <img src="images/alex-blue-image2.jpg" alt="Alex Blue">
+                <div class="media-caption">Rig sketch of Alex Blue</div>
             </div>
             <!-- Image 3 -->
             <div class="media-item" data-index="2">
                 <img src="images/alex-blue-image3.jpg" alt="Alex Blue">
+                <div class="media-caption">Mixamo rig</div>
+            </div>
+            <!-- Image 4 -->
+            <div class="media-item" data-index="3">
+                <img src="images/alex-blue-image4.jpg" alt="Alex Blue">
+                <div class="media-caption">Front view</div>
+            </div>
+            <!-- Image 5 -->
+            <div class="media-item" data-index="4">
+                <img src="images/alex-blue-image5.jpg" alt="Alex Blue">
+                <div class="media-caption">Back view</div>
+            </div>
+            <!-- Image 6 -->
+            <div class="media-item" data-index="5">
+                <img src="images/alex-blue-image6.jpg" alt="Alex Blue">
+                <div class="media-caption">Behind the scenes recording motion captures</div>
+            </div>
+            <!-- Image 7 -->
+            <div class="media-item" data-index="6">
+                <img src="images/alex-blue-image7.jpg" alt="Alex Blue">
+                <div class="media-caption">Reference: Alex Blue inspired by Nathan Drake of Uncharted 4</div>
+            </div>
+            <!-- Image 8 -->
+            <div class="media-item" data-index="7">
+                <img src="images/alex-blue-image8.jpg" alt="Alex Blue">
+                <div class="media-caption">State machine in Unity</div>
             </div>
         </div>
 
@@ -413,11 +470,7 @@
             }
         });
 
-        // ============================================
-        // ENHANCED LIGHTBOX WITH ARROW KEYS
-        // ============================================
-
-        // Get all media items and their images (excluding video)
+        // Enhanced Lightbox with Arrow Keys
         const mediaItems = document.querySelectorAll('.media-item');
         const images = Array.from(mediaItems)
             .filter(item => item.querySelector('img') !== null)
@@ -437,7 +490,6 @@
         const nextBtn = document.querySelector('.lightbox-next');
         const counter = document.querySelector('.lightbox-counter');
 
-        // Open lightbox with specific image
         function openLightbox(index) {
             if (images.length === 0) return;
             currentIndex = index;
@@ -448,13 +500,11 @@
             document.body.style.overflow = 'hidden';
         }
 
-        // Close lightbox
         function closeLightbox() {
             lightbox.classList.remove('active');
             document.body.style.overflow = 'auto';
         }
 
-        // Navigate to previous image
         function prevImage() {
             if (images.length === 0) return;
             currentIndex = (currentIndex - 1 + images.length) % images.length;
@@ -463,7 +513,6 @@
             counter.textContent = `${currentIndex + 1} / ${images.length}`;
         }
 
-        // Navigate to next image
         function nextImage() {
             if (images.length === 0) return;
             currentIndex = (currentIndex + 1) % images.length;
@@ -472,7 +521,6 @@
             counter.textContent = `${currentIndex + 1} / ${images.length}`;
         }
 
-        // Add click handlers to each media item (only for images, not video)
         mediaItems.forEach((item) => {
             const img = item.querySelector('img');
             if (img) {
@@ -483,19 +531,14 @@
             }
         });
 
-        // Button event listeners
         closeBtn.addEventListener('click', closeLightbox);
         prevBtn.addEventListener('click', prevImage);
         nextBtn.addEventListener('click', nextImage);
 
-        // Close lightbox when clicking outside the image
         lightbox.addEventListener('click', (e) => {
             if (e.target === lightbox) closeLightbox();
         });
 
-        // ============================================
-        // KEYBOARD NAVIGATION (Arrow Keys)
-        // ============================================
         document.addEventListener('keydown', (e) => {
             if (!lightbox.classList.contains('active')) return;
 
