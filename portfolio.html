@@ -11,7 +11,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <style>
-        /* Section Header Styles - Fix for icon size */
         .portfolio-section .section-header h2 {
             display: flex;
             align-items: center;
@@ -25,7 +24,6 @@
             background-clip: text;
         }
 
-        /* For emoji/span icons */
         .portfolio-section .section-header .section-icon {
             font-size: 2rem;
             line-height: 1;
@@ -34,7 +32,6 @@
             color: #bf00ff;
         }
 
-        /* For SVG/image icons */
         .portfolio-section .section-header .section-icon-img {
             width: 32px;
             height: 32px;
@@ -49,14 +46,44 @@
             margin-bottom: 2rem;
         }
 
-        /* Fix for portfolio header text wrapping */
         .portfolio-header p {
             max-width: 100%;
+        }
+
+        .project-new-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: linear-gradient(135deg, #bf00ff, #ff00ff);
+            color: #ffffff;
+            font-family: "Orbitron", monospace;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            z-index: 5;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(191, 0, 255, 0.5);
+            animation: newBadgePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes newBadgePulse {
+            0%, 100% {
+                box-shadow: 0 0 10px rgba(191, 0, 255, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 20px rgba(191, 0, 255, 0.8);
+            }
+        }
+
+        .project-image {
+            position: relative;
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav id="navbar">
         <div class="nav-container">
             <div class="nav-left">
@@ -76,7 +103,6 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main class="portfolio-page">
         <header class="portfolio-header fade-in-up">
             <h1>Projects</h1>
@@ -85,9 +111,6 @@
             </p>
         </header>
 
-        <!-- ============================================ -->
-        <!-- SECTION 1: ENVIRONEMNT ART & 3D MODELLING    -->
-        <!-- ============================================ -->
         <section class="portfolio-section">
             <div class="section-header">
                 <h2>
@@ -97,7 +120,59 @@
                 <p>Game-ready environments, modular assets and real-time scenes.</p>
             </div>
             <div class="projects-grid">
-                <!-- Kayi Tribe -->
+
+                <div class="project-card fade-in-up" data-category="3d-environment">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <img src="images/smoke-grenade-cover.jpg" alt="Smoke Grenade" class="project-cover-image">
+                        </div>
+                        <div class="project-new-badge">New</div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-category">3D Prop (Hard Surface)</div>
+                        <h3>Smoke Grenade</h3>
+                        <p>
+                            A stylised hard surface smoke grenade inspired by modern military equipment, focusing on modelling, materials and presentation.
+                        </p>
+                        <div class="project-tech-list">
+                            <span class="tech-tag">Blender</span>
+                        </div>
+                        <a href="smoke-grenade-project.html" class="project-link">
+                            <span>View Project</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in-up" data-category="3d-environment">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <img src="images/gas-station-cover.jpg" alt="Gas Station" class="project-cover-image">
+                        </div>
+                        <div class="project-new-badge">New</div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-category">3D Environment</div>
+                        <h3>Gas Station</h3>
+                        <p>
+                            A 3D gas station environment inspired by modern urban settings, focusing on lighting, materials and immersion.
+                        </p>
+                        <div class="project-tech-list">
+                            <span class="tech-tag">Autodesk Maya</span>
+                            <span class="tech-tag">Unreal Engine 5</span>
+                            <span class="tech-tag">Blueprints Scripting</span>
+                        </div>
+                        <a href="gas-station-project.html" class="project-link">
+                            <span>View Project</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
                 <div class="project-card fade-in-up" data-category="3d-environment">
                     <div class="project-image">
                         <div class="project-placeholder">
@@ -124,34 +199,6 @@
                     </div>
                 </div>
 
-                <!-- Gas Station -->
-                <div class="project-card fade-in-up" data-category="3d-environment">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <img src="images/gas-station-cover.jpg" alt="Gas Station" class="project-cover-image">
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <div class="project-category">3D Environment</div>
-                        <h3>Gas Station</h3>
-                        <p>
-                            A 3D gas station environment inspired by modern urban settings, focusing on lighting, materials and immersion.
-                        </p>
-                        <div class="project-tech-list">
-                            <span class="tech-tag">Autodesk Maya</span>
-                            <span class="tech-tag">Unreal Engine 5</span>
-                            <span class="tech-tag">Blueprints Scripting</span>
-                        </div>
-                        <a href="gas-station-project.html" class="project-link">
-                            <span>View Project</span>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M7 17L17 7M17 7H7M17 7V17" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Snowy -->
                 <div class="project-card fade-in-up" data-category="3d-environment">
                     <div class="project-image">
                         <div class="project-placeholder">
@@ -179,9 +226,6 @@
             </div>
         </section>
 
-        <!-- ============================================ -->
-        <!-- SECTION 2: GAMEPLAY PROGRAMMING                       -->
-        <!-- ============================================ -->
         <section class="portfolio-section">
             <div class="section-header">
                 <h2>
@@ -191,7 +235,7 @@
                 <p>Interactive systems, gameplay mechanics and prototypes built using Unity, Unreal Engine and C#.</p>
             </div>
             <div class="projects-grid">
-                <!-- Last Stand -->
+
                 <div class="project-card fade-in-up" data-category="programming">
                     <div class="project-image">
                         <div class="project-placeholder">
@@ -217,7 +261,6 @@
                     </div>
                 </div>
 
-                <!-- Weather Farm -->
                 <div class="project-card fade-in-up" data-category="programming">
                     <div class="project-image">
                         <div class="project-placeholder">
@@ -247,7 +290,6 @@
                     </div>
                 </div>
 
-                <!-- Blaze Ball -->
                 <div class="project-card fade-in-up" data-category="programming">
                     <div class="project-image">
                         <div class="project-placeholder">
@@ -274,7 +316,6 @@
                     </div>
                 </div>
 
-                <!-- River Drift -->
                 <div class="project-card fade-in-up" data-category="programming">
                     <div class="project-image">
                         <div class="project-placeholder">
@@ -302,9 +343,6 @@
             </div>
         </section>
 
-        <!-- ============================================ -->
-        <!-- SECTION 3: ANIMATION                         -->
-        <!-- ============================================ -->
         <section class="portfolio-section">
             <div class="section-header">
                 <h2>
@@ -314,7 +352,7 @@
                 <p>Keyframe animation, motion capture and cinematic sequences developed for games and real-time experiences.</p>
             </div>
             <div class="projects-grid">
-                <!-- RED vs BLUE -->
+
                 <div class="project-card fade-in-up" data-category="animation">
                     <div class="project-image">
                         <div class="project-placeholder">
@@ -341,7 +379,6 @@
                     </div>
                 </div>
 
-                <!-- Alex Blue -->
                 <div class="project-card fade-in-up" data-category="animation">
                     <div class="project-image">
                         <div class="project-placeholder">
@@ -368,7 +405,6 @@
                     </div>
                 </div>
 
-                <!-- Tower -->
                 <div class="project-card fade-in-up" data-category="animation">
                     <div class="project-image">
                         <div class="project-placeholder">
@@ -398,7 +434,6 @@
             </div>
         </section>
 
-        <!-- Stats Section -->
         <section class="portfolio-stats fade-in-up">
             <div class="stats-grid">
                 <div class="stat-card">
@@ -421,7 +456,6 @@
         </section>
     </main>
 
-    <!-- CTA Section -->
     <section class="cta-section fade-in-up">
         <h3>Ready to work together?</h3>
         <div class="cta-buttons">
@@ -430,7 +464,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div class="social-media">
@@ -452,7 +485,6 @@
     </footer>
 
     <script>
-        // Mobile menu toggle
         const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
         const navMenu = document.getElementById("nav-menu");
 
@@ -461,7 +493,6 @@
             mobileMenuToggle.classList.toggle("active");
         });
 
-        // Navbar scroll effect
         const navbar = document.getElementById("navbar");
         window.addEventListener("scroll", () => {
             if (window.scrollY > 50) {
@@ -471,7 +502,6 @@
             }
         });
 
-        // Intersection Observer for animations
         const observerOptions = {
             threshold: 0.1,
             rootMargin: "0px 0px -50px 0px",
@@ -489,7 +519,6 @@
             observer.observe(element);
         });
 
-        // Project card hover effects
         document.querySelectorAll(".project-card").forEach((card) => {
             card.addEventListener("mouseenter", () => {
                 card.style.transform = "translateY(-10px) scale(1.02)";
@@ -500,7 +529,6 @@
             });
         });
 
-        // Count total projects and update stats
         function updateTotalProjects() {
             const totalProjects = document.querySelectorAll('.project-card').length;
             const statsNumber = document.getElementById('total-projects-count');
@@ -509,7 +537,6 @@
             }
         }
 
-        // Run after page loads
         document.addEventListener('DOMContentLoaded', updateTotalProjects);
     </script>
 </body>
